@@ -1,0 +1,55 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "runner": "terminal",
+  "type": "shell",
+  "echoCommand": true,
+  "presentation": {
+    "reveal": "always"
+  },
+  "options": {
+    "cwd": "${workspaceRoot}/cmake-build-debug"
+  },
+  "tasks": [
+    // cmake
+    {
+      "label": "cmake",
+      "command": "cmake",
+      "args": [
+        "..",
+        "-G",
+        "MinGW Makefiles",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": "build",
+    },
+    // make
+    {
+      "label": "make",
+      "command": "mingw32-make",
+      "args": [
+      ],
+      "group": "build",
+    },
+    // execute
+    {
+      "label": "execute",
+      "command": "cmd",
+      "group": "test",
+      "args": [
+        "/C",
+        "${workspaceRoot}/cmake-build-debug/${fileBasenameNoExtension}"
+      ]
+    }
+  ]
+}
+
+// macro
+// ${env.<VARIABLE>}	${env.PATH}, ${env.COMSPEC}
+// ${workspaceRoot}	C:\sources\hello
+// ${file}	        C:\sources\hello\src\hello.js
+// ${relativeFile}	src\hello.js
+// ${fileBasename}	hello
+// ${fileDirname}	  C:\sources\hello\src
+// ${fileExtname}	  .js
